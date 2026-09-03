@@ -1,22 +1,43 @@
+'use client';
+
 import React from 'react';
 import TodoItem from './TodoItem';
-import { Todo } from '@/types/todo';
+import type { Todo } from '@/types/todo';
 
-export default function TodoList({ todos }: { todos: Todo[] }) {
-  if (!todos || todos.length === 0) {
+type TodoListProps = {
+  todos: Todo[];
+  onToggleTodo: (id: number) => void;
+  onDeleteTodo: (id: number) => void;
+};
+
+export default function TodoList({
+  todos,
+  onToggleTodo,
+  onDeleteTodo,
+}: TodoListProps) {
+  if (todos.length === 0) {
     return (
-      <div className="text-center p-8 border-2 border-dashed border-gray-300 rounded-lg">
-        <p className="text-gray-500">Belum ada tugas. Yuk, tambahkan tugas pertama!</p>
+      <div className="text-center py-8 text-gray-500">
+        Belum ada tugas.
       </div>
     );
   }
 
   return (
-    <div className="mt-6">
-      <h2 className="text-xl font-semibold text-gray-700 mb-4">Tugas Anda</h2>
-      <ul className="space-y-3">
+    <div>
+      {/* Judul */}
+      <h2 className="text-2xl font-bold text-gray-700 mb-5">
+        Tugas Anda
+      </h2>
+
+      {/* List */}
+      <ul className="space-y-4">
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={onToggleTodo}
+          />
         ))}
       </ul>
     </div>
