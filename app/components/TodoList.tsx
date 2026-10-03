@@ -15,28 +15,40 @@ export default function TodoList({
   onToggleTodo,
   onDeleteTodo,
 }: TodoListProps) {
-  if (todos.length === 0) {
-    return (
-      <div className="text-center py-8 text-gray-500">
+ if (todos.length === 0) {
+  return (
+    <div className="border border-dashed border-gray-200 rounded-lg p-8 text-center">
+      <p className="text-gray-500">
         Belum ada tugas.
-      </div>
-    );
-  }
+      </p>
+      <p className="text-gray-400 text-sm mt-2">
+        Tambahkan tugas baru di atas untuk memulai!
+      </p>
+    </div>
+  );
+}
 
   return (
     <div>
-      {/* Judul */}
-      <h2 className="text-2xl font-bold text-gray-700 mb-5">
-        Tugas Anda
+    {/* Judul */}
+     <div className="flex items-center justify-between mb-5">
+     <h2 className="text-lg font-semibold text-gray-700">
+        Daftar Tugas
       </h2>
 
-      {/* List */}
+    <span className="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-full">
+      {todos.length} item
+    </span>
+  </div>
+
+  {/* List */}
       <ul className="space-y-4">
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
             onToggle={onToggleTodo}
+            onDelete={onDeleteTodo}
           />
         ))}
       </ul>
